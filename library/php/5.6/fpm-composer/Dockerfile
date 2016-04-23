@@ -1,20 +1,24 @@
-FROM alpine:latest
+FROM alpine:edge
 
 MAINTAINER Vowstar Co., Ltd. <support@vowstar.com>
 
-RUN apk --update add \
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
+    apk --update add \
+        curl \
         php-dom \
         php-ctype \
         php-curl \
         php-fpm \
         php-gd \
-        php-iconv \
         php-intl \
         php-json \
+        php-mbstring \
+        php-mysqlnd \
         php-opcache \
         php-pdo \
         php-pdo_mysql \
         php-posix \
+        php-session \
         php-xml \
         php-phar \
         php-openssl \
