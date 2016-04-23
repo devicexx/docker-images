@@ -18,6 +18,10 @@ RUN apk --update add \
         php-xml \
         php-phar \
         php-openssl \
+        php-mcrypt \
+        php-zip \
+        php-mbstring \
+        php-mysqli \
         php \
     && rm -rf /var/cache/apk/*
 

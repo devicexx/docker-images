@@ -4,6 +4,7 @@ MAINTAINER Vowstar Co., Ltd. <support@vowstar.com>
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
     apk --update add \
+        curl \
         php7-dom \
         php7-ctype \
         php7-curl \
@@ -21,8 +22,11 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
         php7-xml \
         php7-phar \
         php7-openssl \
+        php7-mcrypt \
+        php7-zip \
+        php7-mbstring \
+        php7-mysqli \
         php7 \
-        curl \
     && rm -rf /var/cache/apk/* \
     && ln -s /usr/bin/php7 /usr/bin/php \
     && ln -s /usr/sbin/php-fpm7 /usr/sbin/php-fpm
