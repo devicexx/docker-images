@@ -19,7 +19,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
         php7-posix \
         php7-session \
         php7-xml \
-        php \
+        php7 \
     && rm -rf /var/cache/apk/* \
     && ln -s /usr/bin/php7 /usr/bin/php \
     && ln -s /usr/sbin/php-fpm7 /usr/sbin/php-fpm

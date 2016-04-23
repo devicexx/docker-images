@@ -16,7 +16,7 @@ RUN apk --update add \
         php-pdo_mysql \
         php-posix \
         php-xml \
-        php
+        php \
     && rm -rf /var/cache/apk/*
 
 # install composer
