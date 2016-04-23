@@ -1,6 +1,7 @@
 FROM alpine:edge
 
-RUN apk --update add \
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
+    apk --update add \
         php7-dom \
         php7-ctype \
         php7-curl \
