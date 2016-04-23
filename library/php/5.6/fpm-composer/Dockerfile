@@ -16,6 +16,8 @@ RUN apk --update add \
         php-pdo_mysql \
         php-posix \
         php-xml \
+        php-phar \
+        php-openssl \
         php \
     && rm -rf /var/cache/apk/*
 
