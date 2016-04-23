@@ -1,5 +1,7 @@
 FROM alpine:latest
 
+MAINTAINER Vowstar Co., Ltd. <support@vowstar.com>
+
 RUN apk --update add \
         php-dom \
         php-ctype \
@@ -14,10 +16,8 @@ RUN apk --update add \
         php-pdo_mysql \
         php-posix \
         php-xml \
+        php
     && rm -rf /var/cache/apk/*
-
-COPY php.ini /etc/php/conf.d/50-setting.ini
-COPY php-fpm.conf /etc/php/php-fpm.conf
 
 # install composer
 RUN cd /usr/local/bin/ \

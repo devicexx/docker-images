@@ -1,5 +1,7 @@
 FROM alpine:edge
 
+MAINTAINER Vowstar Co., Ltd. <support@vowstar.com>
+
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
     apk --update add \
         php7-dom \
@@ -17,7 +19,10 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
         php7-posix \
         php7-session \
         php7-xml \
-    && rm -rf /var/cache/apk/*
+        php \
+    && rm -rf /var/cache/apk/* \
+    && ln -s /usr/bin/php7 /usr/bin/php \
+    && ln -s /usr/sbin/php-fpm7 /usr/sbin/php-fpm
 
 COPY php.ini /etc/php7/conf.d/50-setting.ini
 COPY php-fpm.conf /etc/php7/php-fpm.conf
