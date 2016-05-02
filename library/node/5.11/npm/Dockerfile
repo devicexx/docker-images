@@ -27,6 +27,8 @@ RUN apk add --no-cache python openssl-dev zlib-dev libuv-dev linux-headers paxma
   tar -zxf node-${VERSION}.tar.gz && \
   cd /node-${VERSION} && \
   ./configure --prefix=/usr ${CONFIG_FLAGS} && \
+  make -C out mksnapshot BUILDTYPE=Release && \
+  paxmark -m out/Release/mksnapshot && \
   make -j$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
   make install && \
   paxctl -cm /usr/bin/node && \
