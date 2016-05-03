@@ -19,4 +19,4 @@ VOLUME ["/opt/emqttd/etc", "/opt/emqttd/data", "/opt/emqttd/plugins"]
 
 CMD ["/opt/emqttd/start.sh"]
 
-EXPOSE 1883 8883 18083
+EXPOSE 1883 8883 18083 8083
