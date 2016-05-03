@@ -10,7 +10,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     && mkdir /opt && mv /emqttd/rel/emqttd /opt/emqttd \
     && cd / && rm -rf /emqttd \
     && echo "#!/bin/sh" >> /opt/emqttd/start.sh \
-    && echo "/opt/emqttd/bin/emqttd start && sleep 10 && tail -f --retry /opt/emqttd/log/*" >> /opt/emqttd/start.sh \
+    && echo "/opt/emqttd/bin/emqttd start && sleep 10 && tail -f /opt/emqttd/log/*" >> /opt/emqttd/start.sh \
     && chmod +x /opt/emqttd/start.sh \
     && apk --purge del git make \
     && rm -rf /var/cache/apk/*
