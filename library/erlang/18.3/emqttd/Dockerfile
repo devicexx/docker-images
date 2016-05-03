@@ -5,7 +5,7 @@ MAINTAINER Vowstar Co., Ltd. <support@vowstar.com>
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
     apk --no-cache add \
         git make \
-    && git clone https://github.com/emqtt/emqttd.git \
+    && git clone https://github.com/emqtt/emqttd.git /emqttd \
     && cd /emqttd && make && make dist \
     && mkdir /opt && mv /emqttd/rel/emqttd /opt/emqttd \
     && cd / && rm -rf /emqttd \
