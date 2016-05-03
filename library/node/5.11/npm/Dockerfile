@@ -10,8 +10,8 @@ ENV VERSION=v5.11.0 NPM_VERSION=3
 # ENV CONFIG_FLAGS="--without-npm" RM_DIRS=/usr/include
 # ENV CONFIG_FLAGS="--fully-static --without-npm" DEL_PKGS="libgcc libstdc++" RM_DIRS=/usr/include
 ENV CONFIG_FLAGS="--without-snapshot --fully-static" DEL_PKGS="libgcc libstdc++" RM_DIRS=/usr/include
-# RUN apk add --no-cache curl make gcc g++ binutils-gold python linux-headers paxctl libgcc libstdc++ gnupg && \
-RUN apk add --no-cache python openssl-dev zlib-dev libuv-dev linux-headers paxmark binutils-gold curl make gcc g++ libgcc libstdc++ gnupg && \
+
+RUN apk add --no-cache curl make gcc g++ binutils-gold python linux-headers paxctl libgcc libstdc++ gnupg && \
   gpg --keyserver pool.sks-keyservers.net --recv-keys 9554F04D7259F04124DE6B476D5A82AC7E37093B && \
   gpg --keyserver pool.sks-keyservers.net --recv-keys 94AE36675C464D64BAFA68DD7434390BDBE9B9C5 && \
   gpg --keyserver pool.sks-keyservers.net --recv-keys 0034A06D9D9B0064CE8ADF6BF1747F4AD2306D93 && \
@@ -27,8 +27,6 @@ RUN apk add --no-cache python openssl-dev zlib-dev libuv-dev linux-headers paxma
   tar -zxf node-${VERSION}.tar.gz && \
   cd /node-${VERSION} && \
   ./configure --prefix=/usr ${CONFIG_FLAGS} && \
-  make -C out mksnapshot BUILDTYPE=Release && \
-  paxmark -m out/Release/mksnapshot && \
   make -j$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
   make install && \
   paxctl -cm /usr/bin/node && \
@@ -37,7 +35,7 @@ RUN apk add --no-cache python openssl-dev zlib-dev libuv-dev linux-headers paxma
     npm install -g npm@${NPM_VERSION} && \
     find /usr/lib/node_modules/npm -name test -o -name .bin -type d | xargs rm -rf; \
   fi && \
-  apk del python openssl-dev zlib-dev libuv-dev linux-headers paxmark binutils-gold curl make gcc g++ gnupg ${DEL_PKGS} && \
+  apk del curl make gcc g++ binutils-gold python linux-headers paxctl gnupg ${DEL_PKGS} && \
   rm -rf /etc/ssl /node-${VERSION}.tar.gz /SHASUMS256.txt.asc /node-${VERSION} ${RM_DIRS} \
     /usr/share/man /tmp/* /var/cache/apk/* /root/.npm /root/.node-gyp /root/.gnupg \
     /usr/lib/node_modules/npm/man /usr/lib/node_modules/npm/doc /usr/lib/node_modules/npm/html
