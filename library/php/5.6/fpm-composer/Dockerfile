@@ -34,8 +34,6 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
         php5 \
         && \
     rm -rf /var/cache/apk/* && \
-    ln -s /usr/bin/php5 /usr/bin/php && \
-    ln -s /usr/sbin/php-fpm7 /usr/sbin/php-fpm && \
     sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/php-fpm.conf && \
     sed -i -e "s/listen\s*=\s*127.0.0.1:9000/listen = ${PHP_FPM_LISTEN}/g" /etc/php5/php-fpm.conf && \
     sed -i "s|;date.timezone =.*|date.timezone = ${PHP_DATE_TIMEZONE}|" /etc/php5/php.ini && \
