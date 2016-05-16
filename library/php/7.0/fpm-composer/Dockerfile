@@ -20,20 +20,19 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
         php7-iconv \
         php7-intl \
         php7-json \
-        php7-mbstring \
-        php7-mysqlnd \
         php7-opcache \
         php7-pdo \
         php7-pdo_mysql \
         php7-posix \
-        php7-session \
         php7-xml \
         php7-phar \
         php7-openssl \
         php7-mcrypt \
         php7-zip \
-        php7-mbstring \
         php7-mysqli \
+        php7-mysqlnd \
+        php7-session \
+        php7-mbstring \
         php7 \
         && \
     rm -rf /var/cache/apk/* && \
