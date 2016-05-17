@@ -8,7 +8,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     && apk --no-cache add \
         git \
         make \
-    && git clone -b $(EMQTTD_VERSION) https://github.com/emqtt/emqttd.git /emqttd \
+    && git clone -b ${EMQTTD_VERSION} https://github.com/emqtt/emqttd.git /emqttd \
     && cd /emqttd && make && make dist \
     && mkdir /opt && mv /emqttd/rel/emqttd /opt/emqttd \
     && cd / && rm -rf /emqttd \
@@ -20,7 +20,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
         make \
     && rm -rf /var/cache/apk/*
 
-ENV PATH=$PATH:/opt/emqttd/bin
+ENV PATH=${PATH}:/opt/emqttd/bin
 
 WORKDIR /opt/emqttd
 
