@@ -13,6 +13,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     && mkdir /opt && mv /emqttd/rel/emqttd /opt/emqttd \
     && cd / && rm -rf /emqttd \
     && echo "#!/bin/sh" >> /opt/emqttd/start.sh \
+    && echo 'sed -i -e "s/^-name\s*.*@.*/-name emqttd@`hostname`/g" /opt/emqttd/etc/vm.args' >> /opt/emqttd/start.sh \
     && echo "/opt/emqttd/bin/emqttd start && sleep 10 && tail -f /opt/emqttd/log/*" >> /opt/emqttd/start.sh \
     && chmod +x /opt/emqttd/start.sh \
     && apk --purge del \
@@ -24,7 +25,7 @@ ENV PATH=${PATH}:/opt/emqttd/bin
 
 WORKDIR /opt/emqttd
 
-ENTRYPOINT /opt/emqttd/bin/emqttd_ctl
+#ENTRYPOINT /opt/emqttd/bin/emqttd_ctl
 
 # start emqttd
 CMD ["/opt/emqttd/start.sh"]
