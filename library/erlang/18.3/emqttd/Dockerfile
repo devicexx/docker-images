@@ -15,8 +15,16 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     && apk --purge del git make \
     && rm -rf /var/cache/apk/*
 
-VOLUME ["/opt/emqttd/etc", "/opt/emqttd/data", "/opt/emqttd/plugins"]
+ENV PATH=$PATH:/opt/emqttd/bin
 
+WORKDIR /opt/emqttd
+
+ENTRYPOINT /opt/emqttd/bin/emqttd_ctl
+
+# start emqttd
 CMD ["/opt/emqttd/start.sh"]
 
-EXPOSE 1883 8883 18083 8083
+VOLUME ["/opt/emqttd/etc", "/opt/emqttd/data", "/opt/emqttd/plugins"]
+
+# emqttd will occupy 1883 port for MQTT, 8883 port for MQTT(SSL), 8083 for WebSocket/HTTP, 18083 for dashboard
+EXPOSE 1883 8883 8083 18083
