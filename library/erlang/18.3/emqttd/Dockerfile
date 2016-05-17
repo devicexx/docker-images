@@ -2,9 +2,10 @@ FROM devicexx/erlang
 
 MAINTAINER Vowstar Co., Ltd. <support@vowstar.com>
 
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
-    apk --no-cache add \
-        git make \
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+    && apk --no-cache add \
+        git \
+        make \
     && git clone https://github.com/emqtt/emqttd.git /emqttd \
     && cd /emqttd && make && make dist \
     && mkdir /opt && mv /emqttd/rel/emqttd /opt/emqttd \
@@ -12,7 +13,9 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     && echo "#!/bin/sh" >> /opt/emqttd/start.sh \
     && echo "/opt/emqttd/bin/emqttd start && sleep 10 && tail -f /opt/emqttd/log/*" >> /opt/emqttd/start.sh \
     && chmod +x /opt/emqttd/start.sh \
-    && apk --purge del git make \
+    && apk --purge del \
+        git \
+        make \
     && rm -rf /var/cache/apk/*
 
 ENV PATH=$PATH:/opt/emqttd/bin
