@@ -2,11 +2,13 @@ FROM devicexx/erlang
 
 MAINTAINER Vowstar Co., Ltd. <support@vowstar.com>
 
+ENV EMQTTD_VERSION=1.0.1
+
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
     && apk --no-cache add \
         git \
         make \
-    && git clone https://github.com/emqtt/emqttd.git /emqttd \
+    && git clone -b $(EMQTTD_VERSION) https://github.com/emqtt/emqttd.git /emqttd \
     && cd /emqttd && make && make dist \
     && mkdir /opt && mv /emqttd/rel/emqttd /opt/emqttd \
     && cd / && rm -rf /emqttd \
