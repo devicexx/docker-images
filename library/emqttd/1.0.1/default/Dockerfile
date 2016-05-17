@@ -9,6 +9,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
         git \
         make \
     && git clone -b ${EMQTTD_VERSION} https://github.com/emqtt/emqttd.git /emqttd \
+    && sed -i -e "s/3/4/g" /emqttd/rebar.config \
     && cd /emqttd && make && make dist \
     && mkdir /opt && mv /emqttd/rel/emqttd /opt/emqttd \
     && cd / && rm -rf /emqttd \
