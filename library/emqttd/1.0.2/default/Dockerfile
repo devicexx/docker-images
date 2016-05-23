@@ -3,7 +3,6 @@ FROM devicexx/erlang
 MAINTAINER Vowstar Co., Ltd. <support@vowstar.com>
 
 ENV EMQTTD_VERSION=1.0.2
-ENV EMQTTD_MASTER
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
     && apk --no-cache add \
