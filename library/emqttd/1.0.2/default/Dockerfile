@@ -2,7 +2,8 @@ FROM devicexx/erlang
 
 MAINTAINER Vowstar Co., Ltd. <support@vowstar.com>
 
-ENV EMQTTD_VERSION=master
+ENV EMQTTD_VERSION=1.0.2
+ENV EMQTTD_MASTER
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
     && apk --no-cache add \
@@ -12,20 +13,20 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     && cd /emqttd && make && make dist \
     && mkdir /opt && mv /emqttd/rel/emqttd /opt/emqttd \
     && cd / && rm -rf /emqttd \
-    && echo "#!/bin/sh" >> /opt/emqttd/start.sh \
-    && echo 'export PATH=$PATH:/opt/emqttd/bin' >> /opt/emqttd/start.sh \
-    && echo 'sed -i -e "s/^-name\s*.*@.*/-name emqttd@`hostname`/g" /opt/emqttd/etc/vm.args' >> /opt/emqttd/start.sh \
-    && echo "/opt/emqttd/bin/emqttd start && sleep 10 && tail -f /opt/emqttd/log/*" >> /opt/emqttd/start.sh \
-    && chmod +x /opt/emqttd/start.sh \
+    && echo "#!/bin/sh" >> /etc/profile.d/emqttd.sh \
+    && echo 'export PATH=$PATH:/opt/emqttd/bin' >> /etc/profile.d/emqttd.sh \
+    && chmod +x /etc/profile.d/emqttd.sh \
     && apk --purge del \
         git \
         make \
     && rm -rf /var/cache/apk/*
 
+ADD ./start.sh /opt/emqttd/start.sh
+
 WORKDIR /opt/emqttd
 
-# start emqttd
-CMD ["/opt/emqttd/start.sh"]
+# start emqttd and initial environments
+CMD ["sh /opt/emqttd/start.sh"]
 
 VOLUME ["/opt/emqttd/etc", "/opt/emqttd/data", "/opt/emqttd/plugins"]
 
