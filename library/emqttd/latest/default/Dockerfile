@@ -4,6 +4,8 @@ MAINTAINER Vowstar Co., Ltd. <support@vowstar.com>
 
 ENV EMQTTD_VERSION=master
 
+ADD ./start.sh /start.sh
+
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
     && apk --no-cache add \
         git \
@@ -17,17 +19,17 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     && echo "#!/bin/sh" >> /etc/profile.d/emqttd.sh \
     && echo 'export PATH=$PATH:/opt/emqttd/bin' >> /etc/profile.d/emqttd.sh \
     && chmod +x /etc/profile.d/emqttd.sh \
+    && mv /start.sh /opt/emqttd/start.sh \
+    && chmod +x /opt/emqttd/start.sh \
     && apk --purge del \
         git \
         make \
     && rm -rf /var/cache/apk/*
 
-ADD ./start.sh /opt/emqttd/start.sh
-
 WORKDIR /opt/emqttd
 
 # start emqttd and initial environments
-CMD ["sh /opt/emqttd/start.sh"]
+CMD ["/opt/emqttd/start.sh"]
 
 VOLUME ["/opt/emqttd/etc", "/opt/emqttd/data", "/opt/emqttd/plugins"]
 
