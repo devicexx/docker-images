@@ -9,27 +9,25 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
         git \
         make \
     && git clone -b ${EMQTTD_VERSION} https://github.com/emqtt/emqttd.git /emqttd \
-    && sed -i -e "s/3/4/g" /emqttd/rebar.config \
-    && cd /emqttd && make && make dist \
+    && cd /emqttd \
+    && git checkout origin/master rebar.config \
+    && make && make dist \
     && mkdir /opt && mv /emqttd/rel/emqttd /opt/emqttd \
     && cd / && rm -rf /emqttd \
-    && echo "#!/bin/sh" >> /opt/emqttd/start.sh \
-    && echo 'sed -i -e "s/^-name\s*.*@.*/-name emqttd@`hostname`/g" /opt/emqttd/etc/vm.args' >> /opt/emqttd/start.sh \
-    && echo "/opt/emqttd/bin/emqttd start && sleep 10 && tail -f /opt/emqttd/log/*" >> /opt/emqttd/start.sh \
-    && chmod +x /opt/emqttd/start.sh \
+    && echo "#!/bin/sh" >> /etc/profile.d/emqttd.sh \
+    && echo 'export PATH=$PATH:/opt/emqttd/bin' >> /etc/profile.d/emqttd.sh \
+    && chmod +x /etc/profile.d/emqttd.sh \
     && apk --purge del \
         git \
         make \
     && rm -rf /var/cache/apk/*
 
-ENV PATH=${PATH}:/opt/emqttd/bin
+ADD ./start.sh /opt/emqttd/start.sh
 
 WORKDIR /opt/emqttd
 
-#ENTRYPOINT /opt/emqttd/bin/emqttd_ctl
-
-# start emqttd
-CMD ["/opt/emqttd/start.sh"]
+# start emqttd and initial environments
+CMD ["sh /opt/emqttd/start.sh"]
 
 VOLUME ["/opt/emqttd/etc", "/opt/emqttd/data", "/opt/emqttd/plugins"]
 
