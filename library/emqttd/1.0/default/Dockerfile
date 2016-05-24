@@ -3,6 +3,7 @@ FROM devicexx/erlang
 MAINTAINER Vowstar Co., Ltd. <support@vowstar.com>
 
 ENV EMQTTD_VERSION=1.0
+ENV EMQTTD_MASTER_NAME=emqttd-master
 
 ADD ./start.sh /start.sh
 
@@ -16,11 +17,11 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     && make && make dist \
     && mkdir /opt && mv /emqttd/rel/emqttd /opt/emqttd \
     && cd / && rm -rf /emqttd \
-    && echo "#!/bin/sh" >> /etc/profile.d/emqttd.sh \
-    && echo 'export PATH=$PATH:/opt/emqttd/bin' >> /etc/profile.d/emqttd.sh \
-    && chmod +x /etc/profile.d/emqttd.sh \
     && mv /start.sh /opt/emqttd/start.sh \
     && chmod +x /opt/emqttd/start.sh \
+    && ln -s /opt/emqttd/bin/emqttd /usr/local/bin/
+    && ln -s /opt/emqttd/bin/emqttd_ctl /usr/local/bin/
+    && ln -s /opt/emqttd/bin/emqttd_top /usr/local/bin/
     && apk --purge del \
         git \
         make \
