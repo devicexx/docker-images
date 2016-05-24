@@ -1,6 +1,8 @@
 #!/bin/sh
 # Emqttd start script
-sed -i -e "s/^-name\s*.*@.*/-name emqttd@`hostname`/g" /opt/emqttd/etc/vm.args
+HOSTNAME = `hostname`
+IP_ADDR = `cat /etc/hosts | grep $HOSTNAME | awk '{print $1}'`
+sed -i -e "s/^-name\s*.*@.*/-name emqttd@$IP_ADDR/g" /opt/emqttd/etc/vm.args
 
 /opt/emqttd/bin/emqttd start
 
@@ -11,7 +13,7 @@ then
     export EMQTTD_MASTER=$1
 fi
 
-echo "emqttd@`hostname`"
+echo 'emqttd@'$HOSTNAME
 
 if [ x$EMQTTD_MASTER != x ]
 then
@@ -19,7 +21,6 @@ then
     /opt/emqttd/bin/emqttd_ctl cluster join 'emqttd@'$EMQTTD_MASTER
     echo 'join emqttd@'$EMQTTD_MASTER
 else
-then
 	echo 'cluster master mode'
 fi
 
