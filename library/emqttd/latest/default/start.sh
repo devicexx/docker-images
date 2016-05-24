@@ -13,11 +13,13 @@ echo '['$(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")']:emqttd start'
 if [ x$EMQTTD_MASTER_HOST != x ]
 then
     MASTER_HOST=$EMQTTD_MASTER_HOST
+    echo 'use master host'${MASTER_HOST}
 fi
 
 if [ x$1 != x ]
 then
     MASTER_HOST=$1
+    echo 'use master host'${MASTER_HOST}
 fi
 
 echo 'emqttd@'${SELF_IP}
@@ -28,6 +30,7 @@ then
 	if [ x$MASTER_IP = x ]
     then
         MASTER_IP=$MASTER_HOST
+        echo 'local network not have master host'${MASTER_HOST}
     fi
     echo 'cluster slave mode'
     /opt/emqttd/bin/emqttd_ctl cluster join 'emqttd@'${MASTER_IP}
