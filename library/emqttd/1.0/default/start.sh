@@ -8,6 +8,13 @@ sed -i -e "s/^-name\s*.*@.*/-name emqttd@${SELF_IP}/g" /opt/emqttd/etc/vm.args
 
 /opt/emqttd/bin/emqttd start
 
+# wait and ensure emqttd status is running
+while [ x$(/opt/emqttd/bin/emqttd_ctl status |grep 'is running'|awk '{print $1}') = x ]
+do  
+    sleep 1
+    echo '['$(date -u +"%Y-%m-%dT%H:%M:%SZ")']:waiting emqttd'
+done
+
 echo '['$(date -u +"%Y-%m-%dT%H:%M:%SZ")']:emqttd start'
 
 if [ x$EMQTTD_MASTER_HOST != x ]
