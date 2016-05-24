@@ -5,7 +5,7 @@ SELF_IP=$(cat /etc/hosts | grep ${SELF_HOST} | awk '{print $1}')
 
 sed -i -e "s/^-name\s*.*@.*/-name emqttd@${SELF_IP}/g" /opt/emqttd/etc/vm.args
 
-/opt/emqttd/bin/emqttd console &
+/opt/emqttd/bin/emqttd start
 
 sleep 10
 
@@ -36,4 +36,4 @@ else
 	echo 'cluster master mode'
 fi
 
-fg
+tail -f /opt/emqttd/log/*

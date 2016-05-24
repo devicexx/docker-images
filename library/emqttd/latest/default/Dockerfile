@@ -17,8 +17,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     && mkdir /opt && mv /emqttd/rel/emqttd /opt/emqttd \
     && cd / && rm -rf /emqttd \
     && echo "#!/bin/sh" >> /etc/profile.d/emqttd.sh \
-    && echo 'export PATH=$PATH:/opt/emqttd/bin' >> /etc/profile.d/emqttd.sh \
-    && chmod +x /etc/profile.d/emqttd.sh \
+    && echo 'export PATH=$PATH:/opt/emqttd/bin' >> /etc/profile \
     && mv /start.sh /opt/emqttd/start.sh \
     && chmod +x /opt/emqttd/start.sh \
     && apk --purge del \
