@@ -19,9 +19,9 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     && cd / && rm -rf /emqttd \
     && mv /start.sh /opt/emqttd/start.sh \
     && chmod +x /opt/emqttd/start.sh \
-    && ln -s /opt/emqttd/bin/emqttd /usr/local/bin/
-    && ln -s /opt/emqttd/bin/emqttd_ctl /usr/local/bin/
-    && ln -s /opt/emqttd/bin/emqttd_top /usr/local/bin/
+    && ln -s /opt/emqttd/bin/emqttd /usr/local/bin/ \
+    && ln -s /opt/emqttd/bin/emqttd_ctl /usr/local/bin/ \
+    && ln -s /opt/emqttd/bin/emqttd_top /usr/local/bin/ \
     && apk --purge del \
         git \
         make \
