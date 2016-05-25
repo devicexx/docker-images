@@ -3,7 +3,6 @@ FROM devicexx/erlang
 MAINTAINER Vowstar Co., Ltd. <support@vowstar.com>
 
 ENV EMQTTD_VERSION=master
-ENV EMQTTD_MASTER_NAME=emqttd-master
 
 ADD ./start.sh /start.sh
 
