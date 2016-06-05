@@ -1,5 +1,7 @@
 # Device++ docker images list
 
+Vowstar Co.,Ltd. <support@vowstar.com>
+
 ## Index
 
 ### EMQTTD
@@ -29,8 +31,42 @@ Execute some command under this docker image
 
 #### EMQTTD
 
-For example, run emqttd
+Get emqttd
 
-``docker run --rm -ti -v devicexx/emqttd``
+``docker pull devicexx/emqttd``
 
+Get specific version
+
+``docker pull devicexx/emqttd:1.0``
+
+Tag available
+
+- 1.0.3
+- 1.0.2
+- 1.0.1
+- 1.0
+- latest 
+
+Run emqttd
+
+``docker run --rm -ti --name emqttd-s1 -p 18083:18083 -p 1883:1883 -p 8083:8083 -p 8443:8443 devicexx/emqttd``
+
+Link emqttd as cluster
+
+``docker run --rm -ti --name emqttd-s2 --link emqttd-s1 devicexx/emqttd``
+
+#### ERLANG
+
+Get erlang
+
+``docker pull devicexx/erlang``
+
+Get specific version
+
+``docker pull devicexx/erlang:18.3``
+
+Tag available
+
+- 18.3
+- latest 
 
