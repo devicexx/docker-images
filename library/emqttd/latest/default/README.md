@@ -2,9 +2,6 @@
 
 Vowstar Co.,Ltd. <support@vowstar.com>
 
-## Index
-
-### [EMQTTD](#use-emqttd)
 [![Docker Pulls](https://img.shields.io/docker/pulls/devicexx/emqttd.svg)](https://hub.docker.com/r/devicexx/emqttd/) [![Docker Stars](https://img.shields.io/docker/stars/devicexx/emqttd.svg)](https://hub.docker.com/r/devicexx/emqttd/) [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/vowstar/esp8266/blob/master/LICENSE)
 
 [EMQTTD](https://hub.docker.com/r/devicexx/emqttd/) docker image is Alpine based EMQTT server, 87MB total, Provide MQTT service. 
