@@ -68,12 +68,13 @@ config = {
 '
         mail: {
             transport: "SMTP",
+            from     : process.env.GHOST_MAIL_FROM || "ghost@yourdomain.com",     // ghost@yourdomain.com
             options: {
                 host            : process.env.GHOST_MAIL_HOST || "localhost",     // yourdomain.com
                 secureConnection: process.env.GHOST_MAIL_SECURE || false,         // true or false
                 port            : process.env.GHOST_MAIL_PORT || 465,             // e.g. 465
                 auth: {
-                    user        : process.env.GHOST_MAIL_USERNAME || "webmaster", // e.g. ghost@yourdomain.com
+                    user        : process.env.GHOST_MAIL_USERNAME || "ghost@yourdomain.com", // e.g. ghost@yourdomain.com
                     pass        : process.env.GHOST_MAIL_PASSWORD || "changeme"   // e.g. ***********
                 }
             }

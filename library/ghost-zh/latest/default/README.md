@@ -73,8 +73,9 @@ Notice: If GHOST_MAIL_HOST is not set, mail setting will not appeared in config.
 - GHOST_MAIL_HOST=smtp.devicexx.com
 - GHOST_MAIL_SECURE=true
 - GHOST_MAIL_PORT=465
-- GHOST_MAIL_USERNAME=webmaster
+- GHOST_MAIL_USERNAME=ghost@yourdomain.com
 - GHOST_MAIL_PASSWORD=changeme
+- GHOST_MAIL_FROM="ghost@yourdomain.com"
 ```
 
 ### Database settings
