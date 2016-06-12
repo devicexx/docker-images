@@ -2,7 +2,7 @@
 
 Vowstar Co.,Ltd. <support@vowstar.com>
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/devicexx/ghost-zh.svg)](https://hub.docker.com/r/devicexx/ghost-zh/) [![Docker Stars](https://img.shields.io/docker/stars/devicexx/ghost-zh.svg)](https://hub.docker.com/r/devicexx/ghost-zh/) [![Image Layers](https://badge.imagelayers.io/devicexx/ghost-zh:latest.svg)](https://imagelayers.io/?images=devicexx/ghost-zh:latest) [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/vowstar/esp8266/blob/master/LICENSE)
+[![Docker Pulls](https://img.shields.io/docker/pulls/devicexx/ghost-zh.svg)](https://hub.docker.com/r/devicexx/ghost-zh/) [![Docker Stars](https://img.shields.io/docker/stars/devicexx/ghost-zh.svg)](https://hub.docker.com/r/devicexx/ghost-zh/) [![Image Layers](https://imagelayers.io/badge/devicexx/ghost-zh:latest.svg)](https://imagelayers.io/?images=devicexx/ghost-zh:latest) [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/vowstar/esp8266/blob/master/LICENSE)
 
 [GHOST-ZH](https://hub.docker.com/r/devicexx/ghost-zh/) docker image is Ghost with Chinese language pack. Source code from http://www.ghostchina.com
 
