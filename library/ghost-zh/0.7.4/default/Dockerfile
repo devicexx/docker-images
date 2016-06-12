@@ -26,11 +26,6 @@ WORKDIR $GHOST_SOURCE
 
 ENV GHOST_VERSION 0.7.4
 
-ENV NODE_ENV=production \
-	GHOST_URL=http://0.0.0.0:2368 \
-	GHOST_DATABASE_CLIENT=sqlite3 \
-	GHOST_SQLITE_FILENAME=ghost.db
-
 RUN buildDeps=' \
 		gcc \
 		make \
@@ -56,3 +51,8 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 2368
 CMD ["npm", "start"]
+
+ENV NODE_ENV=production \
+	GHOST_URL=http://0.0.0.0:2368 \
+	GHOST_DATABASE_CLIENT=sqlite3 \
+	GHOST_SQLITE_FILENAME=ghost.db
