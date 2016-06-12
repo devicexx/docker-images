@@ -58,9 +58,18 @@ config = {
         # URL
         echo \
 '
-        url: process.env.GHOST_URL,
+        url: process.env.GHOST_URL || "http://0.0.0.0:2368",
 ' \
         >> "$GHOST_CONTENT/config.js"
+
+        # Admin SSL
+        if [[ "${GHOST_FORCE_ADMIN_SSL}" != "" ]]; then
+            echo \
+'
+        forceAdminSSL: process.env.GHOST_FORCE_ADMIN_SSL || true,
+' \
+            >> "$GHOST_CONTENT/config.js"
+        fi
 
         # Mail
         if [[ "${GHOST_MAIL_HOST}" != "" ]]; then

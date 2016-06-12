@@ -67,6 +67,12 @@ Notice: If not set NODE_ENV, production will active by docker.
 - GHOST_URL=http://blog.devicexx.com
 ```
 
+### Force SSL for admin
+Notice: If this not set, this setting will not appeared in config.js.
+```
+- GHOST_FORCE_ADMIN_SSL=true
+```
+
 ### Mail settings
 Notice: If GHOST_MAIL_HOST is not set, mail setting will not appeared in config.js. GHOST_MAIL_SECURE is true or false. true is for SSL, false is for non-SSL. Only support SMTP settings.
 ```
