@@ -77,7 +77,7 @@ config = {
                     pass        : process.env.GHOST_MAIL_PASSWORD || "changeme"   // e.g. ***********
                 }
             }
-        }
+        },
 ' \
             >> "$GHOST_CONTENT/config.js"
         fi
