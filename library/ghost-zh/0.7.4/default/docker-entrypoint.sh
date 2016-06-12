@@ -21,7 +21,7 @@ if [[ "$*" == npm*start* ]]; then
 
 // Ghost runs in `development` mode by default. Full documentation can be found at http://support.ghost.org/config/
 
-var path = require('path'),
+var path = require("path"),
     config;
 
 config = {
