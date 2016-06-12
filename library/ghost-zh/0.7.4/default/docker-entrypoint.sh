@@ -58,7 +58,7 @@ config = {
         # URL
         echo \
 '
-url: process.env.GHOST_URL,
+        url: process.env.GHOST_URL,
 ' \
         >> "$GHOST_CONTENT/config.js"
 
