@@ -67,6 +67,11 @@ Notice: If not set NODE_ENV, production will active by docker.
 - GHOST_URL=http://blog.devicexx.com
 ```
 
+### Define blog SSL URL
+```
+- GHOST_URL_SSL=https://blog.devicexx.com
+```
+
 ### Force SSL for admin
 Notice: If this not set, this setting will not appeared in config.js.
 ```

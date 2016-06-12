@@ -62,6 +62,15 @@ config = {
 ' \
         >> "$GHOST_CONTENT/config.js"
 
+        # URL SSL
+        if [[ "${GHOST_URL_SSL}" != "" ]]; then
+            echo \
+'
+        urlSSL: process.env.GHOST_URL_SSL || "https://0.0.0.0:2368",
+' \
+            >> "$GHOST_CONTENT/config.js"
+        fi
+
         # Admin SSL
         if [[ "${GHOST_FORCE_ADMIN_SSL}" != "" ]]; then
             echo \
