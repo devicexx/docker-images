@@ -73,7 +73,12 @@ Notice: If not set NODE_ENV, production will active by docker.
 ```
 
 ### Force SSL for admin
-Notice: If this not set, this setting will not appeared in config.js.
+Notice: Check your proxy settings, such as RequestHeader set X-Forwarded-Proto "https".
+
+Before you setting this, look https://github.com/TryGhost/Ghost/issues/2796
+
+If this not set, this setting will not appeared in config.js.
+
 ```
 - GHOST_FORCE_ADMIN_SSL=true
 ```
