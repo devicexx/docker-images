@@ -33,10 +33,10 @@ Tag available
 
 Run with development method, using port 2368
 
-``docker run -d --restart=always --name dxx-blog -e "NODE_ENV=development" -v `pwd`/content:/var/lib/ghost -p 2368:2368 ghost:latest``
+``docker run -d --restart=always --name dxx-blog -e "NODE_ENV=development" -v `pwd`/content:/var/lib/ghost -p 2368:2368 devicexx/ghost-zh:latest``
 
 Run with production method, using port 2368
 
-``docker run -d --restart=always --name dxx-blog -e "NODE_ENV=production" -v `pwd`/content:/var/lib/ghost -p 2368:2368 ghost:latest``
+``docker run -d --restart=always --name dxx-blog -e "NODE_ENV=production" -v `pwd`/content:/var/lib/ghost -p 2368:2368 devicexx/ghost-zh:latest``
 
 
