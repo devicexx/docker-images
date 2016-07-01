@@ -27,6 +27,7 @@ Get specific version
 
 Tag available
 
+- 1.1.2
 - 1.1.1
 - 1.1
 - 1.0.3
