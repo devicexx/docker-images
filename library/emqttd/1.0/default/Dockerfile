@@ -10,6 +10,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     && apk --no-cache add \
         git \
         make \
+        socat \
     && git clone -b ${EMQTTD_VERSION} https://github.com/emqtt/emqttd.git /emqttd \
     && cd /emqttd \
     && git checkout origin/master rebar.config \
