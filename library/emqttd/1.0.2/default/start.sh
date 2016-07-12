@@ -11,11 +11,18 @@ sed -i -e "s/^-name\s*.*@.*/-name emqttd@${SELF_IP}/g" /opt/emqttd/etc/vm.args
 
 /opt/emqttd/bin/emqttd start
 
+WAIT_TIME=0
 # wait and ensure emqttd status is running
 while [ x$(/opt/emqttd/bin/emqttd_ctl status |grep 'is running'|awk '{print $1}') = x ]
-do  
+do
     sleep 1
     echo '['$(date -u +"%Y-%m-%dT%H:%M:%SZ")']:waiting emqttd'
+    WAIT_TIME=`expr ${WAIT_TIME} + 1`
+    if [ ${WAIT_TIME} -gt 5 ]
+    then
+        echo '['$(date -u +"%Y-%m-%dT%H:%M:%SZ")']:timeout error'
+        exit 1
+    fi
 done
 
 echo '['$(date -u +"%Y-%m-%dT%H:%M:%SZ")']:emqttd start'
@@ -66,7 +73,21 @@ do
             /opt/emqttd/bin/emqttd_ctl cluster join 'emqttd@'${REMOTE_IP}
         fi
     done
-    sleep 10
+    CLUSTER_IP_COUNT=$(echo ${CLUSTER_IP_LIST} | grep -E -oh '((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])' | wc -l)       
+    if [ ${CLUSTER_IP_COUNT} -lt 3 ]                                                                                                                                    
+    then                                                                                                                                                                
+        echo '['$(date -u +"%Y-%m-%dT%H:%M:%SZ")']:discover emqtt service'  
+        echo ${SELF_IP} | socat - udp-datagram:255.255.255.255:32491,broadcast                                                                                                 
+    fi                                                                                                                                                                  
+    sleep $((RANDOM%2)) 
+    TARGET_IP=$(echo $(timeout -t 9 socat - udp-recv:32491,reuseaddr) | grep -E -oh '((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])')
+    if [ x$TARGET_IP != x ] && [ x$(echo $CLUSTER_IP_LIST|grep -oh $TARGET_IP) = x ]
+    then
+        REMOTE_IP=${TARGET_IP}
+        echo '['$(date -u +"%Y-%m-%dT%H:%M:%SZ")']:find server '${REMOTE_IP} 
+        echo '['$(date -u +"%Y-%m-%dT%H:%M:%SZ")']:join emqttd@'${REMOTE_IP}
+        /opt/emqttd/bin/emqttd_ctl cluster join 'emqttd@'${REMOTE_IP}
+    fi
 done
 
 tail $(ls /opt/emqttd/log/*)
