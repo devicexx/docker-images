@@ -79,9 +79,10 @@ do
     then                                                                                                                                                                
         echo '['$(date -u +"%Y-%m-%dT%H:%M:%SZ")']:discover emqtt service'  
         echo ${SELF_IP} | socat - udp-datagram:255.255.255.255:32491,broadcast                                                                                                 
-    fi                                                                                                                                                                  
-    sleep $((RANDOM%2)) 
-    DOCKER_IP_LIST=$(echo $(timeout -t 9 socat - udp-recv:32491,reuseaddr) | grep -E -oh '((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])')
+    fi
+    sleep 2                                                                                                                                                                  
+    sleep $((RANDOM%${CLUSTER_IP_COUNT}))
+    DOCKER_IP_LIST=$(echo $(timeout -t 9 socat - udp-listen:32491,reuseaddr) | grep -E -oh '((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])')
     for TARGET_IP in $DOCKER_IP_LIST
     do
         if [ x$(echo $CLUSTER_IP_LIST|grep -oh $TARGET_IP) = x ]
