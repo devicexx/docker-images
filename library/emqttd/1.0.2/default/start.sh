@@ -69,6 +69,7 @@ do
         if [ x$(echo $CLUSTER_IP_LIST|grep -oh $TARGET_IP) = x ]
         then
             REMOTE_IP=${TARGET_IP}
+            echo '['$(date -u +"%Y-%m-%dT%H:%M:%SZ")']:link server '${REMOTE_IP} 
             echo '['$(date -u +"%Y-%m-%dT%H:%M:%SZ")']:join emqttd@'${REMOTE_IP}
             /opt/emqttd/bin/emqttd_ctl cluster join 'emqttd@'${REMOTE_IP}
         fi
@@ -80,14 +81,17 @@ do
         echo ${SELF_IP} | socat - udp-datagram:255.255.255.255:32491,broadcast                                                                                                 
     fi                                                                                                                                                                  
     sleep $((RANDOM%2)) 
-    TARGET_IP=$(echo $(timeout -t 9 socat - udp-recv:32491,reuseaddr) | grep -E -oh '((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])')
-    if [ x$TARGET_IP != x ] && [ x$(echo $CLUSTER_IP_LIST|grep -oh $TARGET_IP) = x ]
-    then
-        REMOTE_IP=${TARGET_IP}
-        echo '['$(date -u +"%Y-%m-%dT%H:%M:%SZ")']:find server '${REMOTE_IP} 
-        echo '['$(date -u +"%Y-%m-%dT%H:%M:%SZ")']:join emqttd@'${REMOTE_IP}
-        /opt/emqttd/bin/emqttd_ctl cluster join 'emqttd@'${REMOTE_IP}
-    fi
+    DOCKER_IP_LIST=$(echo $(timeout -t 9 socat - udp-recv:32491,reuseaddr) | grep -E -oh '((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])')
+    for TARGET_IP in $DOCKER_IP_LIST
+    do
+        if [ x$(echo $CLUSTER_IP_LIST|grep -oh $TARGET_IP) = x ]
+        then
+            REMOTE_IP=${TARGET_IP}
+            echo '['$(date -u +"%Y-%m-%dT%H:%M:%SZ")']:find server '${REMOTE_IP} 
+            echo '['$(date -u +"%Y-%m-%dT%H:%M:%SZ")']:join emqttd@'${REMOTE_IP}
+            /opt/emqttd/bin/emqttd_ctl cluster join 'emqttd@'${REMOTE_IP}
+        fi
+    done
 done
 
 tail $(ls /opt/emqttd/log/*)
